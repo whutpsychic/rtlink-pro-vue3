@@ -1,5 +1,7 @@
 declare module '~/package.json'
+declare module '$'
 declare module '@/stores/style.ts'
+declare module '@/stores/iconMode.ts'
 declare module '@/db.ts'
 
 declare module '@/views/install/main.vue'

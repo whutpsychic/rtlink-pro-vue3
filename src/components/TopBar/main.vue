@@ -20,7 +20,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import pj from '~/package.json'
 import { Sunny, Moon } from '@element-plus/icons-vue'
-import { useStyle } from '@/stores/style.ts'
+import { useStyle } from '@/stores'
 
 const version = ref(pj.version)
 const router = useRouter()

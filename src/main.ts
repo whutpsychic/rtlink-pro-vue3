@@ -17,6 +17,8 @@ import hljsVuePlugin from '@highlightjs/vue-plugin'
 import DemoBlock from "@/components/DemoBlock/main.vue"
 import LineSpliter from "@/components/LineSpliter.vue"
 
+import RtlinkPro from '$';
+
 const app = createApp(App)
 
 app.use(createPinia())
@@ -24,6 +26,7 @@ app.use(router)
 
 app.use(ElementPlus, { zIndex: 3000 })
 app.use(hljsVuePlugin)
+app.use(RtlinkPro)
 
 app.component("demo-block", DemoBlock)
 app.component("line-spliter", LineSpliter)

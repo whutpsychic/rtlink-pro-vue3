@@ -36,7 +36,7 @@ rtc.init();`
 
 </script>
 
-<style>
+<style scoped>
 h2,
 h3 {
   margin-bottom: 1em;

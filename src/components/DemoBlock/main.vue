@@ -9,17 +9,22 @@
       </el-button>
     </div>
     <div :class="'code-can'"
-      :style="`height:${showCodes ? props.height : 0}px;${showCodes ? 'border-bottom:solid 1px #ddd;' : 'border-bottom:none'};`">
-      <slot name="codes"></slot>
+      :style="`height:${showCodes ? height : 0}px;${showCodes ? 'border-bottom:solid 1px #ddd;' : 'border-bottom:none'};`">
+      <highlightjs language="Javascript" :code="code" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
-  height: { type: [Number, String], default: 0 }
+  code: { type: String, default: '' },
+})
+
+const height = computed(() => {
+  const length = props.code.split('\n').length
+  return length * 14 + 50;
 })
 
 const showCodes = ref(false)
@@ -37,6 +42,7 @@ const showCodes = ref(false)
 }
 
 .code-can {
+  font-size: 14px;
   transition: .3s;
   overflow: hidden;
   border: solid 1px #ddd;

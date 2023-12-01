@@ -6,74 +6,72 @@
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
+import { ElMessage } from 'element-plus'
 
-export default {
-  props: {
-    name: { type: String, default: "" },
-    des: { type: String, default: "" },
-    mobile: { type: Boolean, default: false },
-    usingNameMode: { type: Boolean, default: false },
-  },
-  data() {
-    return {
-      showCodes: false,
-    }
-  },
-  methods: {
-    copy() {
-      const { name, CopyText, mobile, usingNameMode } = this
+const props = defineProps({
+  name: { type: String, default: "" },
+  des: { type: String, default: "" },
+  mobile: { type: Boolean, default: false },
+  usingNameMode: { type: [Boolean], required: true, default: false }
+})
 
-      if (usingNameMode) {
-        const content = mobile ? `<rt-icon name="${name}-m" />` : `<rt-icon name="${name}" />`
-        // 将内容复制到剪贴板
-        CopyText(content)
-      } else {
-        const content = mobile ? `<rtmicon-${name} />` : `<rticon-${name} />`
-        // 将内容复制到剪贴板
-        CopyText(content)
-      }
-    },
-    CopyText(textToCopy) {
-      if (!navigator.clipboard) {
-        // 如果当前浏览器不支持 Clipboard API，则使用 execCommand 方法
-        var textArea = document.createElement("textarea");
-        textArea.value = textToCopy;
-        textArea.style.position = "fixed";
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-          document.execCommand("copy");
-          // alert("已复制到剪贴板！");
-          this.$message({
-            message: ` ${textToCopy} 已复制到剪贴板！`,
-            type: 'success'
-          });
-        } catch (err) {
-          // alert("无法复制到剪贴板：" + err);
-          this.$message.error("无法复制到剪贴板：" + err);
-        }
-        document.body.removeChild(textArea);
-        return;
-      }
-      navigator.clipboard.writeText(textToCopy)
-        .then(() => {
-          // alert("已复制到剪贴板！");
-          this.$message({
-            message: ` ${textToCopy} 已复制到剪贴板！`,
-            type: 'success'
-          });
-        })
-        .catch((err) => {
-          // alert("无法复制到剪贴板：" + err);
-          this.$message.error("无法复制到剪贴板：" + err);
-        });
+const copyText = (textToCopy: string) => {
+  if (!navigator.clipboard) {
+    // 如果当前浏览器不支持 Clipboard API，则使用 execCommand 方法
+    let textArea = document.createElement("textarea");
+    textArea.value = textToCopy;
+    textArea.style.position = "fixed";
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand("copy");
+      ElMessage({
+        message: ` ${textToCopy} 已复制到剪贴板！`,
+        type: 'success'
+      })
+    } catch (err) {
+      ElMessage({
+        message: "无法复制到剪贴板：" + err,
+        type: 'error'
+      })
     }
+    document.body.removeChild(textArea);
+    return;
+  }
+  navigator.clipboard.writeText(textToCopy)
+    .then(() => {
+      ElMessage({
+        message: ` ${textToCopy} 已复制到剪贴板！`,
+        type: 'success'
+      })
+    })
+    .catch((err) => {
+      ElMessage({
+        message: "无法复制到剪贴板：" + err,
+        type: 'error'
+      })
+    });
+}
+
+
+const copy = () => {
+  const { name, mobile, usingNameMode } = props
+
+  if (usingNameMode) {
+    const content = mobile ? `<rt-icon name="${name}-m" />` : `<rt-icon name="${name}" />`
+    // 将内容复制到剪贴板
+    copyText(content)
+  } else {
+    const content = mobile ? `<rtmicon-${name} />` : `<rticon-${name} />`
+    // 将内容复制到剪贴板
+    copyText(content)
   }
 }
+
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .icon-block {
   width: 125px;
   height: 95px;

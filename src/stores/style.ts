@@ -1,11 +1,11 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
-export const useStyle = defineStore('style', () => {
+export default defineStore('style', () => {
   const style = ref('light');
   const booleanType = computed(() => style.value === 'dark' ? true : false)
 
-  function change(type) {
+  function change(type: Boolean) {
     style.value = type ? 'dark' : 'light';
     // 对<html />下手
 
