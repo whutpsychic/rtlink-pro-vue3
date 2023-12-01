@@ -1,0 +1,18 @@
+.page-container {
+  min-width: 1000px;
+  display: flex;
+  justify-content: center;
+}
+
+.main-content {
+  width: 960px;
+  padding: 20px;
+}
+
+.result-spliter {
+  margin: 1em 0;
+}
+
+.spliter {
+  height: 20px;
+}

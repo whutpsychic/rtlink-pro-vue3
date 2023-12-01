@@ -1,0 +1,18 @@
+# editor
+.vscode
+
+# vue3 project
+dist
+node_modules
+public
+src
+
+.eslintrc.cjs
+.gitignore
+index.html
+tsconfig.app.json
+tsconfig.config.json
+tsconfig.json
+tsconfig.vitest.json
+vite.config.ts
+

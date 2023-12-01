@@ -1,0 +1,33 @@
+@import "./element-plus-fixer.css";
+@import "./page.css";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  transition: .3s;
+  background-color: white;
+}
+
+html.dark {
+  background-color: #111;
+}
+
+#app {
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
