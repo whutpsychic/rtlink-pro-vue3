@@ -1,0 +1,49 @@
+.rt-formula-editor-container {
+  font-size: 15px;
+}
+
+.rt-formula-item-can {
+  padding: 6px;
+  user-select: none;
+  border: dashed 1px transparent;
+}
+
+.rt-formula-item-can.symbol-can {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+}
+
+.rt-formula-item-can.current {
+  border: dashed 1px #1e90ff;
+}
+
+.rt-formula-item-can>p,
+.rt-formula-item-can>div {
+  flex-basis: 100%;
+}
+
+.rt-formula-item-can>p {
+  text-align: center;
+  font-weight: bold;
+  margin: 0;
+  margin-top: 4px;
+}
+
+.rt-formula-item-can i {
+  cursor: pointer;
+}
+
+.rt-formula-item-can .icon-can {
+  margin-top: 10px;
+}
+
+/* ------------------ fixed element-ui ------------------ */
+.rt-formula-editor-container .el-button.extra-symbol-btn+.el-button.extra-symbol-btn {
+  margin-left: 0;
+}
+
+.extra-symbol-btn {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}

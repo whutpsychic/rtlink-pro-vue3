@@ -8,8 +8,12 @@
         <span class="code-ecli">{{ showCodes ? '</>' : '<>' }}</span>
       </el-button>
     </div>
-    <div :class="'code-can'"
-      :style="`height:${showCodes ? height : 0}px;${showCodes ? 'border-bottom:solid 1px #ddd;' : 'border-bottom:none'};`">
+    <div v-if="props.codehtml" :class="'code-can'"
+      :style="`height:${showCodes ? height1 : 0}px;${showCodes ? 'border-bottom:solid 1px #ddd;' : 'border-bottom:none'};`">
+      <highlightjs language="html" :code="codehtml" />
+    </div>
+    <div v-if="props.code" :class="'code-can'"
+      :style="`height:${showCodes ? height2 : 0}px;${showCodes ? 'border-bottom:solid 1px #ddd;' : 'border-bottom:none'};`">
       <highlightjs language="Javascript" :code="code" />
     </div>
   </div>
@@ -19,12 +23,18 @@
 import { ref, computed } from 'vue'
 
 const props = defineProps({
+  codehtml: { type: String, default: '' },
   code: { type: String, default: '' },
 })
 
-const height = computed(() => {
+const height1 = computed(() => {
+  const length = props.codehtml.split('\n').length
+  return length * 16 + 50;
+})
+
+const height2 = computed(() => {
   const length = props.code.split('\n').length
-  return length * 14 + 50;
+  return length * 16 + 50;
 })
 
 const showCodes = ref(false)
