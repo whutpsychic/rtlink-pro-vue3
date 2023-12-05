@@ -41,7 +41,7 @@ const codehtml = `<rt-formula-editor ref="fe" v-model="formula" :varOptions="var
 const code = `const formula = ref([])
 
 const varOptions = ref([
-{ label: "第一个选项", value: "option1" },
+  { label: "第一个选项", value: "option1" },
   { label: "第二个比较长的选项", value: "option2" },
   { label: "两字", value: "option4" },
   { label: "三个字", value: "option5" },
