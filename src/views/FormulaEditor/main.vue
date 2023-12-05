@@ -29,6 +29,34 @@
       <Basic />
       <line-spliter />
 
+      <!-- 变量选项可搜索 -->
+      <Filterable />
+      <line-spliter />
+
+      <!-- 自定义附加符号 -->
+      <CustomSymbols />
+      <line-spliter />
+
+      <!-- 错误信息 -->
+      <ErrorMsg />
+      <line-spliter />
+
+      <!-- 带偏移量的变量 -->
+      <Offsets />
+      <line-spliter />
+
+      <!-- 自定义校验规则 -->
+      <CustomRules />
+      <line-spliter />
+
+      <!-- 列表模式选择变量 -->
+      <ListTable />
+      <line-spliter />
+
+      <!-- 自定义变量选择 -->
+      <CustomVarSelector />
+      <line-spliter />
+
       <h2>Attributes</h2>
       <el-table :data="attrTableData" style="width: 100%">
         <el-table-column prop="arg" label="参数" width="180">
@@ -66,13 +94,13 @@
 
 <script lang="ts" setup>
 import Basic from './usage/basic.vue';
-// import Filterable from './usage/filterable.vue';
-// import CustomSymbols from './usage/customSymbols.vue';
-// import ErrorMsg from './usage/errorMsg.vue';
-// import Offsets from './usage/offsets.vue';
-// import CustomRules from './usage/customRules.vue';
-// import ListTable from './usage/listTable.vue';
-// import CustomVarSelector from './usage/customVarSelector.vue';
+import Filterable from './usage/filterable.vue';
+import CustomSymbols from './usage/customSymbols.vue';
+import ErrorMsg from './usage/errorMsg.vue';
+import Offsets from './usage/offsets.vue';
+import CustomRules from './usage/customRules.vue';
+import ListTable from './usage/listTable.vue';
+import CustomVarSelector from './usage/customVarSelector.vue';
 
 const attrTableData = [
   {

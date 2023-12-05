@@ -14,16 +14,17 @@
     </div>
     <!-- 分割线 -->
     <div v-if="!(props.extraSymbols && props.extraSymbols.length > 0)" class="spliter"></div>
+    <div v-else style="height:10px;"></div>
     <!-- 额外的符号显示栏 -->
     <el-collapse v-if="props.extraSymbols && props.extraSymbols.length > 0"
-      :value="state.showAllSymbols ? 'extraSymbols' : null">
+      :model-value="state.showAllSymbols ? 'extraSymbols' : null">
       <el-collapse-item title="其他符号" name="extraSymbols">
         <el-button v-for="(item, i) in props.extraSymbols" :key="i" class="extra-symbol-btn"
           @click="addSymbol(item.value)">{{
             item.label }}</el-button>
       </el-collapse-item>
     </el-collapse>
-    <div v-show="state.showAllSymbols" class="spliter"></div>
+    <div v-show="props.extraSymbols && props.extraSymbols.length > 0" style="height:10px;"></div>
     <!-- 错误信息提示处 -->
     <div :class="errorMessage ? `fmerror-msg-tips` : `fmerror-msg-tips hide`">
       <el-alert :title="errorMessage" type="error" show-icon :closable="false" />
@@ -53,6 +54,8 @@
 
 <script setup>
 import { reactive, computed, watch, onMounted, unref } from 'vue';
+import { ElButton, ElCollapse, ElCollapseItem, ElAlert } from 'element-plus';
+
 import SymbolItem from "./items/Symbol.vue";
 import NumberItem from "./items/Number.vue";
 import Item from "./items/Item.vue";
@@ -194,15 +197,18 @@ const backspace = () => {
 
 const clear = () => {
   state.currIndex = -1;
-  $emit('update:value', []);
+  const { value } = props;
+  while (value.length > 0) {
+    value.pop()
+  }
+  $emit('update:value', value);
 }
 
 // 值改变时
 const onChangeItemValue = (v, index) => {
-  const { value } = props;
-  let result = [...value]
-  result[index] = v
-  $emit('update:value', result);
+  let { value } = props;
+  value[index] = v
+  $emit('update:value', value);
 }
 
 // 删除某一项
@@ -291,7 +297,8 @@ const _getItemLabelByValue = (rawitem) => {
 }
 
 // ==============================
-watch(() => props.value, (newv, oldv) => {
+watch(props.value, (newv, oldv) => {
+  console.log(newv)
   // 在这里检测 value
   const { rules } = props;
   let errmsg;

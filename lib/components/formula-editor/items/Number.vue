@@ -13,6 +13,7 @@
 
 <script setup>
 import { CircleClose } from '@element-plus/icons-vue'
+import { ElInputNumber, ElIcon } from 'element-plus'
 
 const props = defineProps({
   // 值

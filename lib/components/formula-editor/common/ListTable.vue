@@ -4,8 +4,8 @@
       <el-button v-for="(item) in currVars" @click="() => onSelectItem(item.value)">{{ item.label }}</el-button>
     </div>
     <div class="pagin-can">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="current"
-        :page-sizes="pageSizes" :page-size="pageSize" layout="total, sizes, prev, pager, next, jumper"
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="state.current"
+        :page-sizes="state.pageSizes" :page-size="state.pageSize" layout="total, sizes, prev, pager, next, jumper"
         :total="varOptions.length">
       </el-pagination>
     </div>
@@ -14,6 +14,7 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
+import { ElButton, ElPagination } from 'element-plus'
 
 const props = defineProps({
   // 变量可选值

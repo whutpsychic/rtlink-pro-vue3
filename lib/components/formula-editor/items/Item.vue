@@ -5,18 +5,18 @@
         :placeholder="state.placeholder" :filterable="filterable">
         <el-option v-for="(item) in varOptions" :key="item.value" :value="item.value" :label="item.label"></el-option>
       </el-select>
-      <el-button v-else-if="props.mode === 'list'" @click="selecting = true">{{ _getLabelByValue() }}</el-button>
+      <el-button v-else-if="props.mode === 'list'" @click="state.selecting = true">{{ _getLabelByValue() }}</el-button>
       <el-button v-else-if="props.mode === 'custom'" @click="$emit('select')">{{ _getLabelByValue() }}</el-button>
       <div v-if="varOffset" class="divider"></div>
-      <el-input-number v-if="varOffset" :style="`width:${state.offsetWidth}px;`" :value="offsetValue"
-        controls-position="right" @change="onChangeOffset"></el-input-number>
+      <el-input-number v-if="varOffset" :model-value="offsetValue" controls-position="right"
+        @change="onChangeOffset"></el-input-number>
     </div>
     <div class="icon-can">
       <el-icon @click="onDelete">
         <CircleClose />
       </el-icon>
     </div>
-    <el-dialog v-if="props.mode === 'list'" :visible.sync="selecting" title="选择变量">
+    <el-dialog v-if="props.mode === 'list'" v-model="state.selecting" title="选择变量">
       <ListTable :varOptions="varOptions" :varOffset="varOffset" :offsetSpliter="offsetSpliter"
         :varDecoration="varDecoration" @select="handleSelect" />
     </el-dialog>
@@ -25,6 +25,8 @@
 
 <script setup>
 import { reactive, computed, onMounted, unref } from 'vue'
+import { ElSelect, ElOption, ElButton, ElInputNumber, ElIcon, ElDialog } from 'element-plus'
+
 import { CircleClose } from '@element-plus/icons-vue'
 import ListTable from '../common/ListTable.vue'
 
@@ -109,21 +111,21 @@ const innerWidth = computed(() => {
   const target = varOptions.find((item) => { return item.value === value });
 
   // 检查是否是默认无偏移量且开启了偏移量功能
-  const target2 = varOptions.find((item) => { return item.value === optionValue });
+  const target2 = varOptions.find((item) => { return item.value === unref(optionValue) });
 
   const finalTarget = target || target2;
 
   // 短字方案
   function _shortFa(_L) {
-    return varOffset ? `calc(${_L * 1 + 1}em + ${offsetWidth + 60}px)` : `calc(${_L * 1 + 1.5}em + 20px)`;
+    return varOffset ? `calc(${_L * 1 + 1.5}em + ${offsetWidth + 30}px)` : `calc(${_L * 1 + 1.5}em + 20px)`;
   }
   // 中字长方案
   function _normalFa(_L) {
-    return varOffset ? `calc(${_L * 1 + 1}em + ${offsetWidth + 60}px)` : `calc(${_L * 1 + 1.2}em + 20px)`;
+    return varOffset ? `calc(${_L * 1 + 1.2}em + ${offsetWidth + 40}px)` : `calc(${_L * 1 + 1.2}em + 20px)`;
   }
   // 巨长字方案
   function _longFa(_L) {
-    return varOffset ? `calc(${_L * 1 + 1}em + ${offsetWidth + 60}px)` : `calc(${_L * 1 + 1}em + 15px)`;
+    return varOffset ? `calc(${_L * 1 + 1.5}em + ${offsetWidth + 40}px)` : `calc(${_L * 1 + 1}em + 15px)`;
   }
 
   if (mode === 'select') {
@@ -151,9 +153,9 @@ const onDelete = (e) => {
 }
 
 const handleChange = (v) => {
-  const { varOffset, offsetSpliter, offsetValue } = props;
+  const { varOffset, offsetSpliter } = props;
   if (varOffset) {
-    $emit('change', `${unref(preVarDecoration)}${v}${offsetSpliter}${offsetValue}${unref(suffVarDecoration)}`);
+    $emit('change', `${unref(preVarDecoration)}${v}${offsetSpliter}${unref(offsetValue)}${unref(suffVarDecoration)}`);
   }
   else {
     $emit('change', `${unref(preVarDecoration)}${v}${unref(suffVarDecoration)}`);
@@ -238,7 +240,7 @@ onMounted(() => {
 .rt-formula-item-can .divider {
   display: inline-block;
   width: 1px;
-  height: 100%;
+  height: 20px;
   background-color: #ddd;
   margin: 0 10px;
 }

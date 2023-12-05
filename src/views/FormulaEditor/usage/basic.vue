@@ -36,9 +36,12 @@ const varOptions = ref([
   { label: "巨长无比的选项选项选项选项选项选项选项选项选项选项选项选项选项尾部", value: "option3" },
 ])
 
-const codehtml = `<rt-formula-editor ref="fe" v-model="formula" :varOptions="varOptions"></rt-formula-editor>`
+const codehtml = `<rt-formula-editor ref="fe" v-model:value="formula" :varOptions="varOptions"></rt-formula-editor>`
 
-const code = `const formula = ref([])
+const code = `<script lang="ts" setup>
+import { ref } from 'vue'
+
+const formula = ref([])
 
 const varOptions = ref([
   { label: "第一个选项", value: "option1" },
@@ -62,7 +65,9 @@ const varOptions = ref([
   { label: "十八个啊手动阀的首发式字大大大大尾部", value: "option20" },
   { label: "十九个啊手动阀的首发式字阿松大啊实尾部", value: "option21" },
   { label: "巨长无比的选项选项选项选项选项选项选项选项选项选项选项选项选项尾部", value: "option3" },
-])`
+])
+
+\<\/script\>`
 </script>
 
 <style scoped></style>

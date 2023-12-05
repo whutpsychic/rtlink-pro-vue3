@@ -1,5 +1,6 @@
 <template>
-  <div :class="props.curr ? 'rt-formula-item-can symbol-can current' : 'rt-formula-item-can symbol-can'" @click="$emit('select')">
+  <div :class="props.curr ? 'rt-formula-item-can symbol-can current' : 'rt-formula-item-can symbol-can'"
+    @click="$emit('select')">
     <p>{{ props.label }}</p>
     <div class="icon-can">
       <el-icon @click="onDelete">
@@ -11,6 +12,7 @@
 
 <script setup>
 import { CircleClose } from '@element-plus/icons-vue'
+import { ElIcon } from 'element-plus'
 
 const props = defineProps({
   // 文字
